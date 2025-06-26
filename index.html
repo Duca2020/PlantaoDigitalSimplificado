@@ -43,7 +43,51 @@
                     </div>
                 </div>
                 <div class="header-actions">
-                    <!-- [Ações do header mantidas] -->
+                    <div class="header-links dropdown">
+                        <button class="br-button circle small" type="button" data-toggle="dropdown" aria-label="Abrir Acesso Rápido"><i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                        </button>
+                        <div class="br-list">
+                            <div class="header">
+                                <div class="title">Acesso Rápido</div>
+                            </div><a class="br-item" href="https://pmt.pi.gov.br/secretarios/">Órgãos da Prefeitura</a><a class="br-item" href="https://pmt.pi.gov.br/teresinensedigital/">Acesso à Informação</a><a class="br-item" href="http://legislacao.teresina.pi.gov.br/legislacao.php">Legislação</a><a class="br-item" href="http://ouvidoria.teresina.pi.gov.br/">Contato</a>
+                        </div>
+                    </div><span class="br-divider vertical mx-half mx-sm-1"></span>
+                    <div class="header-functions dropdown">
+                        <button class="br-button circle small" type="button" data-toggle="dropdown" aria-label="Abrir Funcionalidades do Sistema"><i class="fas fa-th" aria-hidden="true"></i>
+                        </button>
+                        <div class="br-list">
+                            <div class="header">
+                                <div class="title">Funcionalidades do Sistema</div>
+                            </div>
+                            <div class="br-item">
+                                <button class="br-button circle small" type="button" aria-label="Funcionalidade 1"><i class="fas fa-chart-bar" aria-hidden="true"></i><span class="text">Funcionalidade 1</span>
+                                </button>
+                            </div>
+                            <div class="br-item">
+                                <button class="br-button circle small" type="button" aria-label="Funcionalidade 2"><i class="fas fa-headset" aria-hidden="true"></i><span class="text">Funcionalidade 2</span>
+                                </button>
+                            </div>
+                            <div class="br-item">
+                                <button class="br-button circle small" type="button" aria-label="Funcionalidade 3"><i class="fas fa-comment" aria-hidden="true"></i><span class="text">Funcionalidade 3</span>
+                                </button>
+                            </div>
+                            <div class="br-item">
+                                <button class="br-button circle small" type="button" aria-label="Funcionalidade 4"><i class="fas fa-adjust" aria-hidden="true"></i><span class="text">Funcionalidade 4</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-search-trigger">
+                        <button class="br-button circle" type="button" aria-label="Abrir Busca" data-toggle="search" data-target=".header-search"><i class="fas fa-search" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="header-login">
+                        <div class="header-sign-in">
+                            <a class="br-sign-in small" type="button" data-trigger="login" href="javascript:void(0)"><i class="fas fa-user" aria-hidden="true"></i><span class="d-sm-inline">Entrar</span>
+                            </a>
+                        </div>
+                        <div class="header-avatar"></div>
+                    </div>
                 </div>
             </div>
             <div class="header-bottom">
@@ -86,7 +130,7 @@
                                 </div>
                             </div>
                             <nav class="menu-body" role="tree">
-                                <a class="menu-item divider" href="geracao%20teste.html" role="treeitem"><span class="icon"><i class="fas fa-bell" aria-hidden="true"></i></span><span class="content">Gerar Documentos</span></a>
+                                <a class="menu-item divider" href="geracao teste.html" role="treeitem"><span class="icon"><i class="fas fa-bell" aria-hidden="true"></i></span><span class="content">Gerar Documentos</span></a>
                                 <a class="menu-item divider" href="FAQ.html" role="treeitem"><span class="icon"><i class="fas fa-bell" aria-hidden="true"></i></span><span class="content">Ajuda</span></a>
                             </nav>
                         </div>
@@ -103,7 +147,7 @@
                     </nav>
                     <div class="main-content pl-sm-3 mt-4" id="main-content">
                         <h1>Tabela de Dados</h1>
-                        <p>Esta poderá ser usada como base para gerar os relatórios FMS e SDU-Centro.</p>
+                        <p>Esta tabela poderá ser usada como base para gerar os relatórios FMS e SDU-Centro.</p>
                         <div class="row">
                             <div class="jss_toolbar jtoolbar" role="toolbar" data-role="toolbar" aria-label="Spreadsheet Tools">
                                 <div>
@@ -386,7 +430,7 @@
             return `${diaStr}/${mesStr}/${anoStr}`;
         };
         doc.autoTable({
-            head: [["ITEM", "DECLARAÇÃO DE ÓBITO", "FUNERÁRIA", "CEMITÉRIO", "NÚMERO DO BLOCO", "NÚMERO DA GUIA", "TAXA/ISENÇÃO", "VALOR TAXA", "PLANTONISTA", "DATA DO ATENDIMENTO"]],
+            head: [["ITEM", "DECLARAÇÃO DE ÓBITO", "FUNERÁRIA", "CEMITÉRIO", "NÚMERO DO BLOCO", "NÚMERO DA GUIA", "TAXA/ISENÇÃO", "VALOR TAXA", "SITUAÇÃO", "PLANTONISTA", "DATA DO ATENDIMENTO"]],
             body: data.map((item, index) => [
                 (index + 1).toString(),
                 formattedData(item, "DECLARAÇÃO DE ÓBITO"),
@@ -396,14 +440,15 @@
                 formattedData(item, "NÚMERO DA GUIA"),
                 formattedData(item, "TAXA/ISENÇÃO"),
                 formattedData(item, "VALOR TAXA"),
+                formattedData(item, "SITUAÇÃO"),
                 formattedData(item, "PLANTONISTA"),
                 formattedData(item, "DATA DO ATENDIMENTO")
             ]),
             styles: { fontSize: 8, valign: 'middle', halign: 'center', cellPadding: 1, overflow: 'linebreak' },
-            columnStyles: { 0: { cellWidth: 15 }, 1: { cellWidth: 30 }, 2: { cellWidth: 30 }, 3: { cellWidth: 25 }, 4: { cellWidth: 25 }, 5: { cellWidth: 25 }, 6: { cellWidth: 30 }, 7: { cellWidth: 30 }, 8: { cellWidth: 30 }, 9: { cellWidth: 30 } },
+            columnStyles: { 0: { cellWidth: 15 }, 1: { cellWidth: 30 }, 2: { cellWidth: 30 }, 3: { cellWidth: 25 }, 4: { cellWidth: 18 }, 5: { cellWidth: 25 }, 6: { cellWidth: 30 }, 7: { cellWidth: 30 }, 8: { cellWidth: 25 }, 9: { cellWidth: 30 }, 10: { cellWidth: 30 }},
             headStyles: { fillColor: [240, 240, 240], textColor: [0, 0, 0], fontSize: 10, fontStyle: 'bold', halign: 'center', valign: 'middle' },
             theme: 'grid',
-            margin: { top: 70, left: 10, right: 10 },
+            margin: { top: 70, left: 5, right: 10 },
             didDrawPage: function (dataArg) {
                 doc.addImage(imageBase64, 'PNG', logoX, logoY, logoWidth, logoHeight);
                 doc.setFontSize(11);
@@ -429,6 +474,7 @@
             "NÚMERO DA GUIA": formattedData(item, "NÚMERO DA GUIA"),
             "TAXA/ISENÇÃO": formattedData(item, "TAXA/ISENÇÃO"),
             "VALOR TAXA": formattedData(item, "VALOR TAXA"),
+            "SITUAÇÃO": formattedData(item, "SITUAÇÃO"),
             "PLANTONISTA": formattedData(item, "PLANTONISTA"),
             "DATA DO ATENDIMENTO": formattedData(item, "DATA DO ATENDIMENTO")
         }));

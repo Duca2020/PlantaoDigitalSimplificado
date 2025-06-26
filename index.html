@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Template básico</title>
+    <!-- Fonte Rawline-->
+    <link rel="stylesheet" href="https://cdngovbr-ds.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css"/>
+    <!-- Fonte Raleway-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&display=swap"/>
+    <!-- Design System de Governo-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@govbr-ds/core/dist/core.css" />
+    <!-- Fontawesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"/>
+    <!-- jpreadsheet-->
+    <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+    <link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
+    <!-- icones google-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" type="text/css" />
+    <!-- jsPDF e jspdf-autotable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+    <!-- SheetJS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+<div class="template-base">
+    <!-- [Cabeçalho, menu e rodapé mantidos como no original] -->
+    <nav class="br-skiplink" role="menubar">
+        <a class="br-item" href="#main-content" role="menuitem" accesskey="1">Ir para o conteúdo <span aria-hidden="true">(1/4)</span> <span aria-hidden="true" class="br-tag text ml-1">1</span></a>
+        <a class="br-item" href="#header-navigation" role="menuitem" accesskey="2">Ir para o menu <span aria-hidden="true">(2/4)</span> <span aria-hidden="true" class="br-tag text ml-1">2</span></a>
+        <a class="br-item" href="#main-searchbox" role="menuitem" accesskey="3">Ir para a busca <span aria-hidden="true">(3/4)</span> <span aria-hidden="true" class="br-tag text ml-1">3</span></a>
+        <a class="br-item" href="#footer" role="menuitem" accesskey="4">Ir para o rodapé <span aria-hidden="true">(4/4)</span> <span aria-hidden="true" class="br-tag text ml-1">4</span></a>
+    </nav>
+    <header class="br-header mb-4" id="header" data-sticky="data-sticky">
+        <!-- [Cabeçalho mantido como no original] -->
+        <div class="container-lg">
+            <div class="header-top">
+                <div class="header-logo"><img class="brasaoImg" src="" alt="logo"/><span class="br-divider vertical"></span>
+                    <div class="header-sign">
+                        <a href="https://pmt.pi.gov.br/" style="color: #1351B4; text-decoration: none; font-size: 20px;" target="_blank">Prefeitura de Teresina</a>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <!-- [Ações do header mantidas] -->
+                </div>
+            </div>
+            <div class="header-bottom">
+                <div class="header-menu">
+                    <div class="header-menu-trigger" id="header-navigation">
+                        <button class="br-button small circle" type="button" aria-label="Menu" data-toggle="menu" data-target="#main-navigation" id="navigation"><i class="fas fa-bars" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="header-info">
+                        <div class="header-title">Plantão Funerário</div>
+                    </div>
+                </div>
+                <div class="header-search" id="main-searchbox">
+                    <div class="br-input has-icon">
+                        <label for="searchbox">Texto da pesquisa</label>
+                        <input id="searchbox" type="text" placeholder="O que você procura?"/>
+                        <button class="br-button circle small" type="button" aria-label="Pesquisar"><i class="fas fa-search" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <button class="br-button circle search-close ml-1" type="button" aria-label="Fechar Busca" data-dismiss="search"><i class="fas fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="d-flex flex-fill mb-5" id="main">
+        <div class="container-lg d-flex">
+            <div class="row">
+                <div class="br-menu" id="main-navigation">
+                    <div class="menu-container">
+                        <div class="menu-panel">
+                            <div class="menu-header">
+                                <div class="menu-title">
+                                    <img class="brasaoImg" src="" alt="Imagem ilustrativa"/>
+                                    <span style="font-size: 20px;">Usuário Interno</span>
+                                </div>
+                                <div class="menu-close">
+                                    <button class="br-button circle" type="button" aria-label="Fechar o menu" data-dismiss="menu"><i class="fas fa-times" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <nav class="menu-body" role="tree">
+                                <a class="menu-item divider" href="geracao%20teste.html" role="treeitem"><span class="icon"><i class="fas fa-bell" aria-hidden="true"></i></span><span class="content">Gerar Documentos</span></a>
+                                <a class="menu-item divider" href="FAQ.html" role="treeitem"><span class="icon"><i class="fas fa-bell" aria-hidden="true"></i></span><span class="content">Ajuda</span></a>
+                            </nav>
+                        </div>
+                        <div class="menu-scrim" data-dismiss="menu" tabindex="0"></div>
+                    </div>
+                </div>
+
+                <div class="col mb-5">
+                    <nav class="br-breadcrumb">
+                        <ol class="crumb-list" role="list">
+                            <li class="crumb home"><a class="br-button circle"><span class="sr-only">Página inicial</span><i class="fas fa-home"></i></a></li>
+                            <li class="crumb"><i class="icon fas fa-chevron-right"></i>Gerar Documentos</li>
+                        </ol>
+                    </nav>
+                    <div class="main-content pl-sm-3 mt-4" id="main-content">
+                        <h1>Tabela de Dados</h1>
+                        <p>Esta poderá ser usada como base para gerar os relatórios FMS e SDU-Centro.</p>
+                        <div class="row">
+                            <div class="jss_toolbar jtoolbar" role="toolbar" data-role="toolbar" aria-label="Spreadsheet Tools">
+                                <div>
+                                    <div class="jtoolbar-item" id="saveBtn" title="Gerar Relatório"><i class="material-icons">save</i></div>
+                                </div>
+                            </div>
+                            <div id="spreadsheet"></div>
+                        </div>
+                        <br><br><br><br><br><br><br>
+                        <h1>Gerar Relatório FMS (por tabela)</h1>
+                        <p>Esta funcionalidade é utilizada para gerar o relatório da FMS a partir de tabelas salvas no computador.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="br-upload">
+                                    <label class="upload-label" for="fms-excel-upload"><span>Selecione o arquivo Excel de tabelas</span></label>
+                                    <input class="upload-input" id="fms-excel-upload" type="file" accept=".xlsx, .xls" aria-label="enviar arquivo Excel"/>
+                                    <div class="upload-list"></div>
+                                </div>
+                                <button class="br-button secondary mt-3" type="button" id="retornarFMS">Voltar</button>
+                                <button id="gerar-relatorio-fms-tabelas" class="br-button primary mt-3">Gerar Relatório FMS</button>
+                            </div>
+                        </div>
+                        <br><br><br><br><br><br><br>
+                        <h1>Gerar Relatório SDU-CENTRO (por tabela)</h1>
+                        <p>Esta funcionalidade é utilizada para gerar o relatório quinzenal da SDU-CENTRO a partir de tabelas salvas no computador.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="br-upload">
+                                    <label class="upload-label" for="sdu-excel-upload"><span>Selecione o arquivo Excel de tabelas</span></label>
+                                    <input class="upload-input" id="sdu-excel-upload" type="file" multiple accept=".xlsx, .xls" aria-label="enviar arquivo Excel"/>
+                                    <div class="upload-list"></div>
+                                </div>
+                                <button class="br-button secondary mt-3" type="button" id="retornarSDU">Voltar</button>
+                                <button id="gerar-relatorio-sdu-tabelas" class="br-button primary mt-3">Gerar Relatório SDU-CENTRO</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="br-footer pt-3" id="footer">
+        <div class="container-lg">
+            <div class="info">
+                <div class="text-down-01 text-medium pb-3">Todo o conteúdo deste site está publicado sob a licença <strong><a href="https://creativecommons.org/licenses/by-nd/3.0/deed.en">Creative Commons Atribuição-SemDerivações 3.0 Não Adaptada</a>.</strong></div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="https://jsuites.net/v5/jsuites.js"></script>
+<script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@govbr-ds/core/dist/core-init.js"></script>
+<script>
+    // Funções inline
+    async function loadImageAsBase64(url) {
+        const resp = await fetch(url);
+        const blob = await resp.blob();
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+        });
+    }
+
+    async function exportJsonToExcel(data) {
+        const workbook = XLSX.utils.book_new();
+        if (!Array.isArray(data)) data = [data];
+        const worksheet = XLSX.utils.json_to_sheet(data);
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+
+        const dataAtual = new Date();
+        const dia = String(dataAtual.getDate()).padStart(2, '0');
+        const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+        const ano = dataAtual.getFullYear();
+        const hora = dataAtual.getHours();
+        const minto = dataAtual.getMinutes();
+        const sgdo = dataAtual.getSeconds();
+        XLSX.writeFile(workbook, `Relatorio Completo - ${dia}${mes}${ano}_${hora}${minto}${sgdo}.xlsx`);
+    }
+
+    async function readExcelFile(file) {
+        if (!window.XLSX) {
+            console.error("A biblioteca XLSX não está carregada. Certifique-se de incluir o script do SheetJS.");
+            return null;
+        }
+        try {
+            const data = await file.arrayBuffer();
+            const workbook = XLSX.read(data, { type: 'array' });
+            const sheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[sheetName];
+            const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+            const headers = jsonData[0] || [];
+            const rows = jsonData.slice(1).map(row => {
+                const obj = {};
+                headers.forEach((header, index) => {
+                    obj[header] = row[index] !== undefined ? row[index] : '';
+                });
+                return obj;
+            });
+            return rows;
+        } catch (error) {
+            console.error("Erro ao ler o arquivo Excel:", error);
+            return null;
+        }
+    }
+
+    async function mergeExcelData(files) {
+        if (!window.XLSX) {
+            console.error("A biblioteca XLSX não está carregada.");
+            return;
+        }
+        if (files.length < 2) {
+            alert("Por favor, selecione pelo menos dois arquivos Excel.");
+            return;
+        }
+        const combinedData = [];
+        let headers = [];
+        for (const file of files) {
+            const data = await file.arrayBuffer();
+            const workbook = XLSX.read(data, { type: 'array' });
+            const sheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[sheetName];
+            const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+            if (headers.length === 0) headers = jsonData[0] || [];
+            else if (jsonData[0] && JSON.stringify(jsonData[0]) !== JSON.stringify(headers)) {
+                alert("Os cabeçalhos dos arquivos não são iguais.");
+                return;
+            }
+            const rows = jsonData.slice(1).map(row => {
+                const obj = {};
+                headers.forEach((header, index) => {
+                    obj[header] = row[index] !== undefined ? row[index] : '';
+                });
+                return obj;
+            });
+            combinedData.push(...rows);
+        }
+        const worksheetData = [headers, ...combinedData.map(item => headers.map(header => item[header] || ''))];
+        const newWorkbook = XLSX.utils.book_new();
+        const newWorksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+        XLSX.utils.book_append_sheet(newWorkbook, newWorksheet, 'CombinedSheet');
+        const dataAtual = new Date();
+        const dia = String(dataAtual.getDate()).padStart(2, '0');
+        const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+        const ano = dataAtual.getFullYear();
+        const hora = dataAtual.getHours();
+        const minto = dataAtual.getMinutes();
+        const sgdo = dataAtual.getSeconds();
+        XLSX.writeFile(newWorkbook, `Relatorio Combinado - ${dia}${mes}${ano}_${hora}${minto}${sgdo}.xlsx`);
+    }
+
+    function normalizeStr(str) {
+        return str.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').trim();
+    }
+
+    function capitalize(str) {
+        return str
+            .toLowerCase()
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    }
+
+    function getFieldInsensitive(obj, fieldName) {
+        const target = normalizeStr(fieldName);
+        const foundKey = Object.keys(obj).find(key => normalizeStr(key) === target);
+        return foundKey ? obj[foundKey] : null;
+    }
+
+    function formattedData(obj, fieldName) {
+        return (getFieldInsensitive(obj, fieldName) || "Não informado").toString().trim();
+    }
+
+    async function gerarRelatorioFmsPDF(data) {
+        const { jsPDF } = window.jspdf;
+        const dataAtual = new Date();
+        const dia = String(dataAtual.getDate()).padStart(2, '0');
+        const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+        const ano = dataAtual.getFullYear();
+        const hora = dataAtual.getHours();
+        const minto = dataAtual.getMinutes();
+        const sgdo = dataAtual.getSeconds();
+        const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
+        const logoUrl = "https://i.imgur.com/vaDmtrQ.png";
+        const logoWidth = 25;
+        const logoHeight = logoWidth * 1318 / 1200;
+        const logoX = 10;
+        const logoY = 10;
+        const imageBase64 = await loadImageAsBase64(logoUrl);
+        const distancia_logo_texto = 5;
+        const texto_cabecalhoX = logoX + logoWidth + distancia_logo_texto;
+        const texto_cabecalhoY = logoY + 5;
+        const titulo = `RELATÓRIO - ${dia}/${mes}/${ano}`;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const titleWidth = doc.getTextWidth(titulo);
+        const calcularIdade = (dataNascimento) => {
+            if (!dataNascimento) return 'N/A';
+            const [diaNasc, mesNasc, anoNasc] = dataNascimento.split('/').map(Number);
+            const nascimento = new Date(anoNasc, mesNasc - 1, diaNasc);
+            const diff = new Date() - nascimento;
+            const idade = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+            return idade;
+        };
+        doc.autoTable({
+            head: [["ITEM", "NOME", "DATA DE \nNASCIMENTO", "IDADE", "BAIRRO", "MUNICÍPIO", "DATA DE \nÓBITO", "LOCAL DE ÓBITO", "CAUSA DE MORTE", "CEMITÉRIO"]],
+            body: data.map((item, index) => [
+                (index + 1).toString(),
+                formattedData(item, "NOME"),
+                formattedData(item, "DATA DE NASCIMENTO"),
+                formattedData(item, "IDADE"),
+                formattedData(item, "BAIRRO"),
+                formattedData(item, "MUNICÍPIO"),
+                formattedData(item, "DATA DE ÓBITO"),
+                formattedData(item, "LOCAL DE ÓBITO"),
+                formattedData(item, "CAUSA DE MORTE"),
+                formattedData(item, "CEMITÉRIO")
+            ]),
+            styles: { fontSize: 8, valign: 'middle', halign: 'center', cellPadding: 1, overflow: 'linebreak' },
+            columnStyles: { 0: { cellWidth: 15 }, 1: { cellWidth: 30 }, 2: { cellWidth: 30 }, 3: { cellWidth: 15 }, 4: { cellWidth: 25 }, 5: { cellWidth: 25 }, 6: { cellWidth: 30 }, 7: { cellWidth: 30 }, 8: { cellWidth: 25 }, 9: { cellWidth: 30 } },
+            headStyles: { fillColor: [240, 240, 240], textColor: [0, 0, 0], fontSize: 10, fontStyle: 'bold', halign: 'center', valign: 'middle' },
+            theme: 'grid',
+            margin: { top: 70, left: 10, right: 10 },
+            didDrawPage: function (dataArg) {
+                doc.addImage(imageBase64, 'PNG', logoX, logoY, logoWidth, logoHeight);
+                doc.setFontSize(11);
+                doc.setFont(undefined, 'bold');
+                doc.text("ESTADO DO PIAUÍ", texto_cabecalhoX, texto_cabecalhoY);
+                doc.setFont(undefined, 'normal');
+                doc.text("Prefeitura Municipal de Teresina", texto_cabecalhoX, texto_cabecalhoY + 6);
+                doc.text("Superintendência de Desenvolvimento Urbano - Centro (SDU-Centro)", texto_cabecalhoX, texto_cabecalhoY + 12);
+                doc.text("Plantão Funerário", texto_cabecalhoX, texto_cabecalhoY + 18);
+                doc.setFontSize(16);
+                doc.setFont(undefined, 'bold');
+                doc.text(titulo, (pageWidth - titleWidth) / 2, 60);
+                doc.setFont(undefined, 'normal');
+            }
+        });
+        doc.save(`Relatorio_FMS_${dia}${mes}${ano}_${hora}${minto}${sgdo}.pdf`);
+    }
+
+    async function gerarRelatorioSduPDF(data) {
+        const { jsPDF } = window.jspdf;
+        const dataAtual = new Date();
+        const dia = String(dataAtual.getDate()).padStart(2, '0');
+        const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+        const ano = dataAtual.getFullYear();
+        const hora = dataAtual.getHours();
+        const minto = dataAtual.getMinutes();
+        const sgdo = dataAtual.getSeconds();
+        const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
+        const logoUrl = "https://i.imgur.com/vaDmtrQ.png";
+        const logoWidth = 25;
+        const logoHeight = logoWidth * 1318 / 1200;
+        const logoX = 10;
+        const logoY = 10;
+        const imageBase64 = await loadImageAsBase64(logoUrl);
+        const distancia_logo_texto = 5;
+        const texto_cabecalhoX = logoX + logoWidth + distancia_logo_texto;
+        const texto_cabecalhoY = logoY + 5;
+        const titulo = `RELATÓRIO - ${dia}/${mes}/${ano}`;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const titleWidth = doc.getTextWidth(titulo);
+        const calcularIdade = (dataNascimento) => {
+            if (!dataNascimento) return 'N/A';
+            const [diaNasc, mesNasc, anoNasc] = dataNascimento.split('/').map(Number);
+            const nascimento = new Date(anoNasc, mesNasc - 1, diaNasc);
+            const diff = new Date() - nascimento;
+            const idade = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+            return idade;
+        };
+        const formatDate = (dateValue) => {
+            if (!dateValue || isNaN(dateValue)) return "Não informado";
+            const date = new Date(((dateValue - 25569) * 86400) * 1000);
+            if (isNaN(date.getTime())) return "Não informado";
+            const diaStr = String(date.getDate() + 1).padStart(2, '0');
+            const mesStr = String(date.getMonth() + 1).padStart(2, '0');
+            const anoStr = date.getFullYear();
+            return `${diaStr}/${mesStr}/${anoStr}`;
+        };
+        doc.autoTable({
+            head: [["ITEM", "DECLARAÇÃO DE ÓBITO", "FUNERÁRIA", "CEMITÉRIO", "NÚMERO DO BLOCO", "NÚMERO DA GUIA", "TAXA/ISENÇÃO", "VALOR TAXA", "PLANTONISTA", "DATA DO ATENDIMENTO"]],
+            body: data.map((item, index) => [
+                (index + 1).toString(),
+                formattedData(item, "DECLARAÇÃO DE ÓBITO"),
+                formattedData(item, "FUNERÁRIA"),
+                formattedData(item, "CEMITÉRIO"),
+                formattedData(item, "NÚMERO DO BLOCO"),
+                formattedData(item, "NÚMERO DA GUIA"),
+                formattedData(item, "TAXA/ISENÇÃO"),
+                formattedData(item, "VALOR TAXA"),
+                formattedData(item, "PLANTONISTA"),
+                formattedData(item, "DATA DO ATENDIMENTO")
+            ]),
+            styles: { fontSize: 8, valign: 'middle', halign: 'center', cellPadding: 1, overflow: 'linebreak' },
+            columnStyles: { 0: { cellWidth: 15 }, 1: { cellWidth: 30 }, 2: { cellWidth: 30 }, 3: { cellWidth: 25 }, 4: { cellWidth: 25 }, 5: { cellWidth: 25 }, 6: { cellWidth: 30 }, 7: { cellWidth: 30 }, 8: { cellWidth: 30 }, 9: { cellWidth: 30 } },
+            headStyles: { fillColor: [240, 240, 240], textColor: [0, 0, 0], fontSize: 10, fontStyle: 'bold', halign: 'center', valign: 'middle' },
+            theme: 'grid',
+            margin: { top: 70, left: 10, right: 10 },
+            didDrawPage: function (dataArg) {
+                doc.addImage(imageBase64, 'PNG', logoX, logoY, logoWidth, logoHeight);
+                doc.setFontSize(11);
+                doc.setFont(undefined, 'bold');
+                doc.text("ESTADO DO PIAUÍ", texto_cabecalhoX, texto_cabecalhoY);
+                doc.setFont(undefined, 'normal');
+                doc.text("Prefeitura Municipal de Teresina", texto_cabecalhoX, texto_cabecalhoY + 6);
+                doc.text("Superintendência de Desenvolvimento Urbano - Centro (SDU-Centro)", texto_cabecalhoX, texto_cabecalhoY + 12);
+                doc.text("Plantão Funerário", texto_cabecalhoX, texto_cabecalhoY + 18);
+                doc.setFontSize(16);
+                doc.setFont(undefined, 'bold');
+                doc.text(titulo, (pageWidth - titleWidth) / 2, 60);
+                doc.setFont(undefined, 'normal');
+            }
+        });
+        doc.save(`Relatorio_SDU_${dia}${mes}${ano}_${hora}${minto}${sgdo}.pdf`);
+        const excelData = data.map((item, index) => ({
+            "ITEM": (index + 1).toString(),
+            "DECLARAÇÃO DE ÓBITO": formattedData(item, "DECLARAÇÃO DE ÓBITO"),
+            "FUNERÁRIA": formattedData(item, "FUNERÁRIA"),
+            "CEMITÉRIO": formattedData(item, "CEMITÉRIO"),
+            "NÚMERO DO BLOCO": formattedData(item, "NÚMERO DO BLOCO"),
+            "NÚMERO DA GUIA": formattedData(item, "NÚMERO DA GUIA"),
+            "TAXA/ISENÇÃO": formattedData(item, "TAXA/ISENÇÃO"),
+            "VALOR TAXA": formattedData(item, "VALOR TAXA"),
+            "PLANTONISTA": formattedData(item, "PLANTONISTA"),
+            "DATA DO ATENDIMENTO": formattedData(item, "DATA DO ATENDIMENTO")
+        }));
+        await exportJsonToExcel(excelData);
+    }
+
+    async function gerarTabelaDatmPDF(dataSEMF) {
+        const { jsPDF } = window.jspdf;
+        const anoAtual = new Date().getFullYear();
+        const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
+        const logoUrl = "https://i.imgur.com/vaDmtrQ.png";
+        const logoWidth = 25;
+        const logoHeight = logoWidth * 1318 / 1200;
+        const logoX = 10;
+        const logoY = 10;
+        const imageBase64 = await loadImageAsBase64(logoUrl);
+        if (imageBase64) doc.addImage(imageBase64, 'PNG', logoX, logoY, logoWidth, logoHeight);
+        const distancia_logo_texto = 5;
+        const texto_cabecalhoX = logoX + logoWidth + distancia_logo_texto;
+        const texto_cabecalhoY = logoY + 5;
+        doc.setFontSize(11);
+        doc.setFont(undefined, 'bold');
+        doc.text("ESTADO DO PIAUÍ", texto_cabecalhoX, texto_cabecalhoY);
+        doc.setFont(undefined, 'normal');
+        doc.text("Prefeitura Municipal de Teresina", texto_cabecalhoX, texto_cabecalhoY + 6);
+        doc.text("Superintendência de Desenvolvimento Urbano - Centro-Norte", texto_cabecalhoX, texto_cabecalhoY + 12);
+        doc.text("Plantão Funerário", texto_cabecalhoX, texto_cabecalhoY + 18);
+        const titulo = `TABELA DE PREÇOS DATM ${anoAtual}`;
+        doc.setFontSize(14);
+        doc.setFont(undefined, 'bold');
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const textWidth = doc.getTextWidth(titulo);
+        const centerX = (pageWidth - textWidth) / 2;
+        const titleY = 45;
+        doc.text(titulo, centerX, titleY);
+        doc.autoTable({
+            startY: 55,
+            head: [[{ content: "CEMITÉRIOS DO GRUPO A\n- SÃO JOSÉ (Norte);\n- SÃO JUDAS TADEU (Leste);", colSpan: 4 }, { content: "CEMITÉRIOS DO GRUPO B\n- DOM BOSCO (Sul);\n- SANTO ANTONIO (Norte);\n- RENASCENÇA (Sudeste)", colSpan: 4 }, { content: "CEMITÉRIOS DO GRUPO C\n- POTY VELHO (Norte);\n- SÃO SEBASTIÃO (Sudeste);\n- SÃO JOÃO BATISTA (Norte);\n- MORROS (Leste);\n- SANTA CRUZ (Sul);\n- SANTA MARIA (Norte);\n- SANTA MONICA (Leste);", colSpan: 4 }]],
+            body: [["TIPO", "CÓDIGO", "VALOR (R$)", "TOTAL (R$)", "TIPO", "CÓDIGO", "VALOR (R$)", "TOTAL (R$)", "TIPO", "CÓDIGO", "VALOR (R$)", "TOTAL (R$)"], ["ADULTO 1ª ABERTURA/COVA RASA", "14020102\n14020104", "0,00\n0,00", "0,00", "ADULTO 1ª ABERTURA/COVA RASA", "14020202\n14020204", "44,45\n44,45", "88,90", "ADULTO 1ª ABERTURA/COVA RASA", "14020302\n14020304", "17,28\n17,28", "34,56"], ["ADULTO JAZIGO/GAVETA", "14020103\n14020105", "112,37\n58,04", "170,41", "ADULTO JAZIGO/GAVETA", "14020203\n14020205", "85,17\n44,45", "129,62", "ADULTO JAZIGO/GAVETA", "14020303\n14020305", "30,87\n17,28", "48,15"], ["INFANTE 1ª ABERTURA/COVA RASA", "14020402\n14020404", "0,00\n0,00", "0,00", "INFANTE 1ª ABERTURA/COVA RASA", "14020502\n14020504", "0,00\n0,00", "0,00", "INFANTE 1ª ABERTURA/COVA RASA", "14020602\n14020604", "10,53\n10,53", "21,06"], ["INFANTE JAZIGO/GAVETA", "14020403\n14020405", "81,45\n54,32", "135,77", "INFANTE JAZIGO/GAVETA", "14020503\n14020505", "0,00\n0,00", "0,00", "INFANTE JAZIGO/GAVETA", "14020603\n14020605", "24,03\n24,03", "48,06"]],
+            styles: { fontSize: 8, valign: 'middle', halign: 'left', cellPadding: 1, overflow: 'linebreak' },
+            columnStyles: { 0: { cellWidth: 30, halign: 'left' }, 1: { cellWidth: 25, halign: 'center' }, 2: { cellWidth: 15, halign: 'center' }, 3: { cellWidth: 15, halign: 'center' }, 4: { cellWidth: 30, halign: 'left' }, 5: { cellWidth: 25, halign: 'center' }, 6: { cellWidth: 15, halign: 'center' }, 7: { cellWidth: 15, halign: 'center' }, 8: { cellWidth: 30, halign: 'left' }, 9: { cellWidth: 25, halign: 'center' }, 10: { cellWidth: 15, halign: 'center' }, 11: { cellWidth: 15, halign: 'center' } },
+            headStyles: { fillColor: [240, 240, 240], textColor: [0, 0, 0], fontSize: 8, fontStyle: 'bold', halign: 'left', valign: 'middle' },
+            theme: 'grid',
+            margin: { left: 10, right: 10 }
+        });
+        doc.save(`Tabela_de_Precos_DATM_${anoAtual}.pdf`);
+    }
+
+    // Inicialização da planilha
+    let spreadsheet = jspreadsheet(document.getElementById('spreadsheet'), {
+        worksheets: [{
+            data: Array(150).fill().map(() => ['', '', '', '', '', '', '', '', '', '']),
+            columns: [
+                { title: 'A' },
+                { title: 'B' },
+                { title: 'C' },
+                { title: 'D' },
+                { title: 'E' },
+                { title: 'F' },
+                { title: 'G' },
+                { title: 'H' },
+                { title: 'I' },
+                { title: 'J' }
+            ],
+            tableOverflow: true,
+            tableHeight: '400px',
+            tableWidth: '800px',
+            defaultColWidth: '100px',
+            allowUndo: true
+        }]
+    });
+
+    // Função para mapear dados da planilha
+    function mapDataToReport(data) {
+        if (!Array.isArray(data) || data.length === 0) return [];
+
+        // Mapeamento de nomes de cemitérios para formato correto
+        const cemeteryMap = {
+            'sao jose': 'São José',
+            'são jose': 'São José',
+            'sao josé': 'São José',
+            'são josé': 'São José',
+            'sao judas tadeu': 'São Judas Tadeu',
+            'são judas tadeu': 'São Judas Tadeu',
+            'renascença': 'Renascença',
+            'sao sebastiao': 'São Sebastião',
+            'sao sebastião': 'São Sebastião',
+            'são sebastiao':  'São Sebastião',
+            'são sebastião': 'São Sebastião',
+            'santo antonio': 'Santo Antônio',
+            'santo antônio': 'Santo Antônio',
+            'sao joao batista': 'São João Batista',
+            'sao joão batista': 'São João Batista',
+            'são joao batista': 'São João Batista',
+            'são joão batista': 'São João Batista',
+            'santa monica': 'Santa Mônica',
+            'santa mônica': 'Santa Mônica'
+        };
+
+        // Encontra a linha com cabeçalhos
+        let headerRowIndex = data.findIndex(row => {
+            if (!Array.isArray(row)) return false;
+            const filled = row.filter(cell => cell !== null && cell !== undefined && cell !== '').length;
+            return filled >= Math.ceil(row.length / 2);
+        });
+
+        if (headerRowIndex === -1) return [];
+
+        const headers = data[headerRowIndex].map(h => h?.toString().trim() || '');
+        const dataRows = data.slice(headerRowIndex + 1);
+
+        return dataRows
+            .filter(row => row.some(cell => cell !== '' && cell !== null && cell !== undefined))
+            .map(row => {
+                const obj = {};
+                headers.forEach((header, index) => {
+                    let value = row[index] ? capitalize(row[index]) : 'Não informado';
+
+                    // Normaliza a coluna "CEMITÉRIO"
+                    if (header.toUpperCase().includes('CEMITÉRIO')) {
+                        const lower = value.toString().trim().toLowerCase();
+                        value = cemeteryMap[lower] || value;
+                    }
+
+                    obj[header] = value;
+                });
+                return obj;
+            });
+    }
+
+
+
+    // Função de download ajustada
+    function download(sheet) {
+        const data = sheet[0].getData(); // Acessa diretamente getData do objeto spreadsheet
+        const ws = XLSX.utils.aoa_to_sheet(data);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+        XLSX.writeFile(wb, "arquivo.xlsx");
+    }
+
+    // Eventos
+    document.getElementById('saveBtn').onclick = async () => {
+        const data = spreadsheet[0].getData();
+        const reportData = mapDataToReport(data);
+        download(spreadsheet); // Gera arquivo .xlsx
+    };
+
+    const excelInputFMS = document.getElementById('fms-excel-upload');
+    const gerarFmsButton = document.getElementById('gerar-relatorio-fms-tabelas');
+    if (excelInputFMS && gerarFmsButton) {
+        gerarFmsButton.addEventListener('click', async () => {
+            const file = excelInputFMS.files[0];
+            let data;
+            if (file) {
+                data = await readExcelFile(file);
+            } else {
+                data = mapDataToReport(spreadsheet[0].getData());
+            }
+            if (data) {
+                try {
+                    await gerarRelatorioFmsPDF(data);
+                    alert("Relatório FMS gerado com sucesso!");
+                } catch (error) {
+                    console.error("Erro ao gerar o relatório FMS:", error);
+                    alert("Ocorreu um erro ao gerar o relatório.");
+                }
+            }
+        });
+    }
+
+    const excelInputSDU = document.getElementById('sdu-excel-upload');
+    const gerarSDUButton = document.getElementById('gerar-relatorio-sdu-tabelas');
+    if (excelInputSDU && gerarSDUButton) {
+        gerarSDUButton.addEventListener('click', async () => {
+            const files = excelInputSDU.files;
+            let data;
+            if (files.length > 0) {
+                const allData = [];
+                for (const file of files) {
+                    const fileData = await readExcelFile(file);
+                    if (fileData) allData.push(...fileData);
+                }
+                data = allData;
+            } else {
+                data = mapDataToReport(spreadsheet[0].getData());
+            }
+            if (data && data.length) {
+                try {
+                    await gerarRelatorioSduPDF(data);
+                    alert("Relatório SDU-CENTRO gerado com sucesso!");
+                } catch (error) {
+                    console.error("Erro ao gerar o relatório SDU-CENTRO:", error);
+                    alert("Ocorreu um erro ao gerar o relatório.");
+                }
+            }
+        });
+    }
+
+    const voltarButtonFMS = document.getElementById('retornarFMS');
+    if (voltarButtonFMS) {
+        voltarButtonFMS.addEventListener('click', () => {
+            window.location.href = 'home.html';
+        });
+    }
+
+    const voltarButtonSDU = document.getElementById('retornarSDU');
+    if (voltarButtonSDU) {
+        voltarButtonSDU.addEventListener('click', () => {
+            window.location.href = 'home.html';
+        });
+    }
+
+    // Carregar imagem do brasão
+    window.onload = async () => {
+        const base64String = await loadImageAsBase64("https://i.imgur.com/HaGCfsJ.png");
+        if (base64String) {
+            const images = document.getElementsByClassName('brasaoImg');
+            for (let img of images) {
+                img.src = base64String;
+            }
+        }
+    };
+</script>
+</body>
+</html>

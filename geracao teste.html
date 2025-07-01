@@ -151,7 +151,7 @@
                         <div class="row">
                             <div class="jss_toolbar jtoolbar" role="toolbar" data-role="toolbar" aria-label="Spreadsheet Tools">
                                 <div>
-                                    <div class="jtoolbar-item" id="saveBtn" title="Gerar Relatório"><i class="material-icons">save</i></div>
+                                    <div class="jtoolbar-item" id="saveBtn" title="Salvar tabela"><i class="material-icons">save</i></div>
                                 </div>
                             </div>
                             <div id="spreadsheet"></div>
@@ -467,6 +467,7 @@
         doc.save(`Relatorio_SDU_${dia}${mes}${ano}_${hora}${minto}${sgdo}.pdf`);
         const excelData = data.map((item, index) => ({
             "ITEM": (index + 1).toString(),
+            "CPF": formattedData(item, "CPF"),
             "DECLARAÇÃO DE ÓBITO": formattedData(item, "DECLARAÇÃO DE ÓBITO"),
             "FUNERÁRIA": formattedData(item, "FUNERÁRIA"),
             "CEMITÉRIO": formattedData(item, "CEMITÉRIO"),
@@ -540,8 +541,8 @@
                 { title: 'J' }
             ],
             tableOverflow: true,
-            tableHeight: '400px',
-            tableWidth: '800px',
+            tableHeight: '600px',
+            tableWidth: '1000px',
             defaultColWidth: '100px',
             allowUndo: true
         }]
@@ -612,8 +613,12 @@
         const data = sheet[0].getData(); // Acessa diretamente getData do objeto spreadsheet
         const ws = XLSX.utils.aoa_to_sheet(data);
         const wb = XLSX.utils.book_new();
+        const dataAtual = new Date();
+        const hora = dataAtual.getHours();
+        const minto = dataAtual.getMinutes();
+        const sgdo = dataAtual.getSeconds();
         XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-        XLSX.writeFile(wb, "arquivo.xlsx");
+        XLSX.writeFile(wb, `tabela_${hora}${minto}${sgdo}.xlsx`);
     }
 
     // Eventos

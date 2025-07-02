@@ -354,18 +354,18 @@
             return idade;
         };
         doc.autoTable({
-            head: [["ITEM", "NOME", "DATA DE \nNASCIMENTO", "IDADE", "BAIRRO", "MUNICÍPIO", "DATA DE \nÓBITO", "LOCAL DE ÓBITO", "CAUSA DE MORTE", "CEMITÉRIO"]],
+            head: [["ITEM", "NOME", "DIA DO \nNASCIMENTO", "IDADE", "BAIRRO", "MUNICÍPIO", "DATA DO \nFALECIMENTO", "LOCAL DO FALECIMENTO", "CAUSA MORTE", "CEMITÉRIO"]],
             body: data.map((item, index) => [
                 (index + 1).toString(),
-                formattedData(item, "NOME"),
+                formattedData(item, "FALECIDO(A)"),
                 formattedData(item, "DATA DE NASCIMENTO"),
                 formattedData(item, "IDADE"),
                 formattedData(item, "BAIRRO"),
-                formattedData(item, "MUNICÍPIO"),
-                formattedData(item, "DATA DE ÓBITO"),
-                formattedData(item, "LOCAL DE ÓBITO"),
-                formattedData(item, "CAUSA DE MORTE"),
-                formattedData(item, "CEMITÉRIO")
+                formattedData(item, "MUNICIPIO"),
+                formattedData(item, "DATA DE OBITO"),
+                formattedData(item, "LOCAL DO OBITO"),
+                formattedData(item, "CAUSA MORTE"),
+                formattedData(item, "CEMITERIO")
             ]),
             styles: { fontSize: 8, valign: 'middle', halign: 'center', cellPadding: 1, overflow: 'linebreak' },
             columnStyles: { 0: { cellWidth: 15 }, 1: { cellWidth: 30 }, 2: { cellWidth: 30 }, 3: { cellWidth: 15 }, 4: { cellWidth: 25 }, 5: { cellWidth: 25 }, 6: { cellWidth: 30 }, 7: { cellWidth: 30 }, 8: { cellWidth: 25 }, 9: { cellWidth: 30 } },
@@ -433,16 +433,16 @@
             head: [["ITEM", "DECLARAÇÃO DE ÓBITO", "FUNERÁRIA", "CEMITÉRIO", "NÚMERO DO BLOCO", "NÚMERO DA GUIA", "TAXA/ISENÇÃO", "VALOR TAXA", "SITUAÇÃO", "PLANTONISTA", "DATA DO ATENDIMENTO"]],
             body: data.map((item, index) => [
                 (index + 1).toString(),
-                formattedData(item, "DECLARAÇÃO DE ÓBITO"),
-                formattedData(item, "FUNERÁRIA"),
-                formattedData(item, "CEMITÉRIO"),
-                formattedData(item, "NÚMERO DO BLOCO"),
-                formattedData(item, "NÚMERO DA GUIA"),
-                formattedData(item, "TAXA/ISENÇÃO"),
-                formattedData(item, "VALOR TAXA"),
+                formattedData(item, "D.O."),
+                formattedData(item, "FUNERARIA"),
+                formattedData(item, "CEMITERIO"),
+                formattedData(item, "BLOCO"),
+                formattedData(item, "GUIA"),
+                formattedData(item, "TAXA/ ISENÇÃO/TRANSLADO"),
+                formattedData(item, "TAXA EMITIDA PARA FUNERARIA OU TAXA PAGA PELA FAMILIA OU SEMCASPI/TRANSLADO/RURAL"),
                 formattedData(item, "SITUAÇÃO"),
                 formattedData(item, "PLANTONISTA"),
-                formattedData(item, "DATA DO ATENDIMENTO")
+                formattedData(item, "DATA DE ATENDIMENTO")
             ]),
             styles: { fontSize: 8, valign: 'middle', halign: 'center', cellPadding: 1, overflow: 'linebreak' },
             columnStyles: { 0: { cellWidth: 15 }, 1: { cellWidth: 30 }, 2: { cellWidth: 30 }, 3: { cellWidth: 25 }, 4: { cellWidth: 18 }, 5: { cellWidth: 25 }, 6: { cellWidth: 30 }, 7: { cellWidth: 30 }, 8: { cellWidth: 25 }, 9: { cellWidth: 30 }, 10: { cellWidth: 30 }},
@@ -468,16 +468,16 @@
         const excelData = data.map((item, index) => ({
             "ITEM": (index + 1).toString(),
             "CPF": formattedData(item, "CPF"),
-            "DECLARAÇÃO DE ÓBITO": formattedData(item, "DECLARAÇÃO DE ÓBITO"),
-            "FUNERÁRIA": formattedData(item, "FUNERÁRIA"),
-            "CEMITÉRIO": formattedData(item, "CEMITÉRIO"),
-            "NÚMERO DO BLOCO": formattedData(item, "NÚMERO DO BLOCO"),
-            "NÚMERO DA GUIA": formattedData(item, "NÚMERO DA GUIA"),
-            "TAXA/ISENÇÃO": formattedData(item, "TAXA/ISENÇÃO"),
-            "VALOR TAXA": formattedData(item, "VALOR TAXA"),
+            "DECLARAÇÃO DE ÓBITO": formattedData(item, "D.O."),
+            "FUNERÁRIA": formattedData(item, "FUNERARIA"),
+            "CEMITÉRIO": formattedData(item, "CEMITERIO"),
+            "NÚMERO DO BLOCO": formattedData(item, "BLOCO"),
+            "NÚMERO DA GUIA": formattedData(item, "GUIA"),
+            "TAXA/ISENÇÃO": formattedData(item, "TAXA/ ISENÇÃO/TRANSLADO"),
+            "VALOR TAXA": formattedData(item, "TAXA EMITIDA PARA FUNERARIA OU TAXA PAGA PELA FAMILIA OU SEMCASPI/TRANSLADO/RURAL"),
             "SITUAÇÃO": formattedData(item, "SITUAÇÃO"),
             "PLANTONISTA": formattedData(item, "PLANTONISTA"),
-            "DATA DO ATENDIMENTO": formattedData(item, "DATA DO ATENDIMENTO")
+            "DATA DO ATENDIMENTO": formattedData(item, "DATA DE ATENDIMENTO")
         }));
         await exportJsonToExcel(excelData);
     }
@@ -595,7 +595,7 @@
                     let value = row[index] ? capitalize(row[index]) : 'Não informado';
 
                     // Normaliza a coluna "CEMITÉRIO"
-                    if (header.toUpperCase().includes('CEMITÉRIO')) {
+                    if (header.toUpperCase().includes('CEMITERIO')) {
                         const lower = value.toString().trim().toLowerCase();
                         value = cemeteryMap[lower] || value;
                     }

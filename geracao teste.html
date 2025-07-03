@@ -429,7 +429,7 @@
             return `${diaStr}/${mesStr}/${anoStr}`;
         };
         doc.autoTable({
-            head: [["ITEM", "DECLARAÇÃO DE ÓBITO", "FUNERÁRIA", "CEMITÉRIO", "NÚMERO DO BLOCO", "NÚMERO DA GUIA", "TAXA/ISENÇÃO", "VALOR TAXA", "SITUAÇÃO", "PLANTONISTA", "DATA DO ATENDIMENTO"]],
+            head: [["ITEM", "DECLARAÇÃO DE ÓBITO", "FUNERÁRIA", "CEMITÉRIO", "NÚMERO DO BLOCO", "NÚMERO DA GUIA", "TAXA/ISENÇÃO/TRANSLADO", "VALOR TAXA", "SITUAÇÃO", "PLANTONISTA", "DATA DO ATENDIMENTO"]],
             body: data.map((item, index) => [
                 (index + 1).toString(),
                 formattedData(item, "D.O"),
@@ -437,7 +437,7 @@
                 formattedData(item, "CEMITERIO"),
                 formattedData(item, "BLOCO"),
                 formattedData(item, "GUIA"),
-                formattedData(item, "TAXA/ ISENÇÃO/TRANSLADO"),
+                formattedData(item, "TAXA / ISENÇÃO/TRANSLADO"),
                 formattedData(item, "TAXA EMITIDA PARA FUNERARIA OU TAXA PAGA PELA FAMILIA OU SEMCASPI/TRANSLADO/RURAL"),
                 formattedData(item, "SITUAÇÃO"),
                 formattedData(item, "PLANTONISTA"),
@@ -472,7 +472,7 @@
             "CEMITÉRIO": formattedData(item, "CEMITERIO"),
             "NÚMERO DO BLOCO": formattedData(item, "BLOCO"),
             "NÚMERO DA GUIA": formattedData(item, "GUIA"),
-            "TAXA/ISENÇÃO": formattedData(item, "TAXA/ ISENÇÃO/TRANSLADO"),
+            "TAXA/ISENÇÃO/TRANSLADO": formattedData(item, "TAXA / ISENÇÃO/TRANSLADO"),
             "VALOR TAXA": formattedData(item, "TAXA EMITIDA PARA FUNERARIA OU TAXA PAGA PELA FAMILIA OU SEMCASPI/TRANSLADO/RURAL"),
             "SITUAÇÃO": formattedData(item, "SITUAÇÃO"),
             "PLANTONISTA": formattedData(item, "PLANTONISTA"),

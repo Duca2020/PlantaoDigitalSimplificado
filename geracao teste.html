@@ -354,24 +354,23 @@
             return idade;
         };
         doc.autoTable({
-            head: [["ITEM", "NOME", "DIA DO \nNASCIMENTO", "IDADE", "BAIRRO", "MUNICÍPIO", "DATA DO \nFALECIMENTO", "LOCAL DO FALECIMENTO", "CAUSA MORTE", "CEMITÉRIO"]],
+            head: [["ITEM", "NOME", "DIA DO \nNASCIMENTO", "IDADE", "DATA DO \nFALECIMENTO", "DECLARAÇÃO DE ÓBITO", "FUNERARIA", "CAUSA MORTE", "CEMITÉRIO"]],
             body: data.map((item, index) => [
                 (index + 1).toString(),
                 formattedData(item, "FALECIDO(A)"),
                 formattedData(item, "DATA DE NASCIMENTO"),
                 formattedData(item, "IDADE"),
-                formattedData(item, "BAIRRO"),
-                formattedData(item, "MUNICIPIO"),
                 formattedData(item, "DATA DE OBITO"),
-                formattedData(item, "LOCAL DO OBITO"),
+                formattedData(item, "D.O"),
+                formattedData(item, "FUNERARIA"),
                 formattedData(item, "CAUSA MORTE"),
                 formattedData(item, "CEMITERIO")
             ]),
             styles: { fontSize: 8, valign: 'middle', halign: 'center', cellPadding: 1, overflow: 'linebreak' },
-            columnStyles: { 0: { cellWidth: 15 }, 1: { cellWidth: 30 }, 2: { cellWidth: 30 }, 3: { cellWidth: 15 }, 4: { cellWidth: 25 }, 5: { cellWidth: 25 }, 6: { cellWidth: 30 }, 7: { cellWidth: 30 }, 8: { cellWidth: 25 }, 9: { cellWidth: 30 } },
+            columnStyles: { 0: { cellWidth: 15 }, 1: { cellWidth: 30 }, 2: { cellWidth: 30 }, 3: { cellWidth: 15 }, 4: { cellWidth: 30 }, 5: { cellWidth: 30 }, 6: { cellWidth: 30 }, 7: { cellWidth: 30 }, 8: { cellWidth: 25 }, 9: { cellWidth: 30 } },
             headStyles: { fillColor: [240, 240, 240], textColor: [0, 0, 0], fontSize: 10, fontStyle: 'bold', halign: 'center', valign: 'middle' },
             theme: 'grid',
-            margin: { top: 70, left: 10, right: 10 },
+            margin: { top: 70, left: 20, right: 10 },
             didDrawPage: function (dataArg) {
                 doc.addImage(imageBase64, 'PNG', logoX, logoY, logoWidth, logoHeight);
                 doc.setFontSize(11);
@@ -433,7 +432,7 @@
             head: [["ITEM", "DECLARAÇÃO DE ÓBITO", "FUNERÁRIA", "CEMITÉRIO", "NÚMERO DO BLOCO", "NÚMERO DA GUIA", "TAXA/ISENÇÃO", "VALOR TAXA", "SITUAÇÃO", "PLANTONISTA", "DATA DO ATENDIMENTO"]],
             body: data.map((item, index) => [
                 (index + 1).toString(),
-                formattedData(item, "D.O."),
+                formattedData(item, "D.O"),
                 formattedData(item, "FUNERARIA"),
                 formattedData(item, "CEMITERIO"),
                 formattedData(item, "BLOCO"),
@@ -468,7 +467,7 @@
         const excelData = data.map((item, index) => ({
             "ITEM": (index + 1).toString(),
             "CPF": formattedData(item, "CPF"),
-            "DECLARAÇÃO DE ÓBITO": formattedData(item, "D.O."),
+            "DECLARAÇÃO DE ÓBITO": formattedData(item, "D.O"),
             "FUNERÁRIA": formattedData(item, "FUNERARIA"),
             "CEMITÉRIO": formattedData(item, "CEMITERIO"),
             "NÚMERO DO BLOCO": formattedData(item, "BLOCO"),

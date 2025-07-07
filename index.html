@@ -466,7 +466,9 @@
         doc.save(`Relatorio_SDU_${dia}${mes}${ano}_${hora}${minto}${sgdo}.pdf`);
         const excelData = data.map((item, index) => ({
             "ITEM": (index + 1).toString(),
+            "NOME": formattedData(item, "FALECIDO(A)"),
             "CPF": formattedData(item, "CPF"),
+            "DATA DE ÓBITO": formattedData(item, "DATA DE OBITO"),
             "DECLARAÇÃO DE ÓBITO": formattedData(item, "D.O"),
             "FUNERÁRIA": formattedData(item, "FUNERARIA"),
             "CEMITÉRIO": formattedData(item, "CEMITERIO"),

@@ -184,6 +184,20 @@
                                 <button id="gerar-relatorio-sdu-tabelas" class="br-button primary mt-3">Gerar Relatório SDU-CENTRO</button>
                             </div>
                         </div>
+                        <br><br><br><br><br><br><br>
+                        <h1>Gerar Planilha PMT (por tabela)</h1>
+                        <p>Esta funcionalidade é utilizada para gerar a planilha mensal da Prefeitura Municipal de Teresina a partir de tabelas salvas no computador.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="br-upload">
+                                    <label class="upload-label" for="prefeitura-excel-upload"><span>Selecione o arquivo Excel de tabelas</span></label>
+                                    <input class="upload-input" id="prefeitura-excel-upload" type="file" multiple accept=".xlsx, .xls" aria-label="enviar arquivo Excel"/>
+                                    <div class="upload-list"></div>
+                                </div>
+                                <button class="br-button secondary mt-3" type="button" id="retornarPrefeitura">Voltar</button>
+                                <button id="gerar-planilha-prefeitura" class="br-button primary mt-3">Gerar Planilha PMT</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -256,50 +270,6 @@
         }
     }
 
-    async function mergeExcelData(files) {
-        if (!window.XLSX) {
-            console.error("A biblioteca XLSX não está carregada.");
-            return;
-        }
-        if (files.length < 2) {
-            alert("Por favor, selecione pelo menos dois arquivos Excel.");
-            return;
-        }
-        const combinedData = [];
-        let headers = [];
-        for (const file of files) {
-            const data = await file.arrayBuffer();
-            const workbook = XLSX.read(data, { type: 'array' });
-            const sheetName = workbook.SheetNames[0];
-            const worksheet = workbook.Sheets[sheetName];
-            const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-            if (headers.length === 0) headers = jsonData[0] || [];
-            else if (jsonData[0] && JSON.stringify(jsonData[0]) !== JSON.stringify(headers)) {
-                alert("Os cabeçalhos dos arquivos não são iguais.");
-                return;
-            }
-            const rows = jsonData.slice(1).map(row => {
-                const obj = {};
-                headers.forEach((header, index) => {
-                    obj[header] = row[index] !== undefined ? row[index] : '';
-                });
-                return obj;
-            });
-            combinedData.push(...rows);
-        }
-        const worksheetData = [headers, ...combinedData.map(item => headers.map(header => item[header] || ''))];
-        const newWorkbook = XLSX.utils.book_new();
-        const newWorksheet = XLSX.utils.aoa_to_sheet(worksheetData);
-        XLSX.utils.book_append_sheet(newWorkbook, newWorksheet, 'CombinedSheet');
-        const dataAtual = new Date();
-        const dia = String(dataAtual.getDate()).padStart(2, '0');
-        const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
-        const ano = dataAtual.getFullYear();
-        const hora = dataAtual.getHours();
-        const minto = dataAtual.getMinutes();
-        const sgdo = dataAtual.getSeconds();
-        XLSX.writeFile(newWorkbook, `Relatorio Combinado - ${dia}${mes}${ano}_${hora}${minto}${sgdo}.xlsx`);
-    }
 
     function normalizeStr(str) {
         return str.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').trim();
@@ -429,7 +399,7 @@
             return `${diaStr}/${mesStr}/${anoStr}`;
         };
         doc.autoTable({
-            head: [["ITEM", "DECLARAÇÃO DE ÓBITO", "FUNERÁRIA", "CEMITÉRIO", "NÚMERO DO BLOCO", "NÚMERO DA GUIA", "TAXA/ISENÇÃO/TRANSLADO", "VALOR TAXA", "SITUAÇÃO", "PLANTONISTA", "DATA DO ATENDIMENTO"]],
+            head: [["ITEM", "DECLARAÇÃO DE ÓBITO", "FUNERÁRIA", "CEMITÉRIO", "NÚMERO DO BLOCO", "NÚMERO DA GUIA", "TAXA EMITIDA PARA FUNERARIA OU TAXA PAGA PELA FAMILIA OU SEMCASPI/TRANSLADO/RURAL", "VALOR TAXA", "SITUAÇÃO", "PLANTONISTA", "DATA DO ATENDIMENTO"]],
             body: data.map((item, index) => [
                 (index + 1).toString(),
                 formattedData(item, "D.O"),
@@ -437,8 +407,8 @@
                 formattedData(item, "CEMITERIO"),
                 formattedData(item, "BLOCO"),
                 formattedData(item, "GUIA"),
-                formattedData(item, "TAXA / ISENÇÃO/TRANSLADO"),
                 formattedData(item, "TAXA EMITIDA PARA FUNERARIA OU TAXA PAGA PELA FAMILIA OU SEMCASPI/TRANSLADO/RURAL"),
+                formattedData(item, "TAXA / ISENÇÃO/TRANSLADO"),
                 formattedData(item, "SITUAÇÃO"),
                 formattedData(item, "PLANTONISTA"),
                 formattedData(item, "DATA DE ATENDIMENTO")
@@ -474,8 +444,8 @@
             "CEMITÉRIO": formattedData(item, "CEMITERIO"),
             "NÚMERO DO BLOCO": formattedData(item, "BLOCO"),
             "NÚMERO DA GUIA": formattedData(item, "GUIA"),
-            "TAXA/ISENÇÃO/TRANSLADO": formattedData(item, "TAXA / ISENÇÃO/TRANSLADO"),
-            "VALOR TAXA": formattedData(item, "TAXA EMITIDA PARA FUNERARIA OU TAXA PAGA PELA FAMILIA OU SEMCASPI/TRANSLADO/RURAL"),
+            "TAXA EMITIDA PARA FUNERARIA OU TAXA PAGA PELA FAMILIA OU SEMCASPI/TRANSLADO/RURAL": formattedData(item, "TAXA EMITIDA PARA FUNERARIA OU TAXA PAGA PELA FAMILIA OU SEMCASPI/TRANSLADO/RURAL"),
+            "VALOR TAXA": formattedData(item, "TAXA / ISENÇÃO/TRANSLADO"),
             "SITUAÇÃO": formattedData(item, "SITUAÇÃO"),
             "PLANTONISTA": formattedData(item, "PLANTONISTA"),
             "DATA DO ATENDIMENTO": formattedData(item, "DATA DE ATENDIMENTO")
@@ -483,47 +453,36 @@
         await exportJsonToExcel(excelData);
     }
 
-    async function gerarTabelaDatmPDF(dataSEMF) {
-        const { jsPDF } = window.jspdf;
-        const anoAtual = new Date().getFullYear();
-        const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
-        const logoUrl = "https://i.imgur.com/vaDmtrQ.png";
-        const logoWidth = 25;
-        const logoHeight = logoWidth * 1318 / 1200;
-        const logoX = 10;
-        const logoY = 10;
-        const imageBase64 = await loadImageAsBase64(logoUrl);
-        if (imageBase64) doc.addImage(imageBase64, 'PNG', logoX, logoY, logoWidth, logoHeight);
-        const distancia_logo_texto = 5;
-        const texto_cabecalhoX = logoX + logoWidth + distancia_logo_texto;
-        const texto_cabecalhoY = logoY + 5;
-        doc.setFontSize(11);
-        doc.setFont(undefined, 'bold');
-        doc.text("ESTADO DO PIAUÍ", texto_cabecalhoX, texto_cabecalhoY);
-        doc.setFont(undefined, 'normal');
-        doc.text("Prefeitura Municipal de Teresina", texto_cabecalhoX, texto_cabecalhoY + 6);
-        doc.text("Superintendência de Desenvolvimento Urbano - Centro-Norte", texto_cabecalhoX, texto_cabecalhoY + 12);
-        doc.text("Plantão Funerário", texto_cabecalhoX, texto_cabecalhoY + 18);
-        const titulo = `TABELA DE PREÇOS DATM ${anoAtual}`;
-        doc.setFontSize(14);
-        doc.setFont(undefined, 'bold');
-        const pageWidth = doc.internal.pageSize.getWidth();
-        const textWidth = doc.getTextWidth(titulo);
-        const centerX = (pageWidth - textWidth) / 2;
-        const titleY = 45;
-        doc.text(titulo, centerX, titleY);
-        doc.autoTable({
-            startY: 55,
-            head: [[{ content: "CEMITÉRIOS DO GRUPO A\n- SÃO JOSÉ (Norte);\n- SÃO JUDAS TADEU (Leste);", colSpan: 4 }, { content: "CEMITÉRIOS DO GRUPO B\n- DOM BOSCO (Sul);\n- SANTO ANTONIO (Norte);\n- RENASCENÇA (Sudeste)", colSpan: 4 }, { content: "CEMITÉRIOS DO GRUPO C\n- POTY VELHO (Norte);\n- SÃO SEBASTIÃO (Sudeste);\n- SÃO JOÃO BATISTA (Norte);\n- MORROS (Leste);\n- SANTA CRUZ (Sul);\n- SANTA MARIA (Norte);\n- SANTA MONICA (Leste);", colSpan: 4 }]],
-            body: [["TIPO", "CÓDIGO", "VALOR (R$)", "TOTAL (R$)", "TIPO", "CÓDIGO", "VALOR (R$)", "TOTAL (R$)", "TIPO", "CÓDIGO", "VALOR (R$)", "TOTAL (R$)"], ["ADULTO 1ª ABERTURA/COVA RASA", "14020102\n14020104", "0,00\n0,00", "0,00", "ADULTO 1ª ABERTURA/COVA RASA", "14020202\n14020204", "44,45\n44,45", "88,90", "ADULTO 1ª ABERTURA/COVA RASA", "14020302\n14020304", "17,28\n17,28", "34,56"], ["ADULTO JAZIGO/GAVETA", "14020103\n14020105", "112,37\n58,04", "170,41", "ADULTO JAZIGO/GAVETA", "14020203\n14020205", "85,17\n44,45", "129,62", "ADULTO JAZIGO/GAVETA", "14020303\n14020305", "30,87\n17,28", "48,15"], ["INFANTE 1ª ABERTURA/COVA RASA", "14020402\n14020404", "0,00\n0,00", "0,00", "INFANTE 1ª ABERTURA/COVA RASA", "14020502\n14020504", "0,00\n0,00", "0,00", "INFANTE 1ª ABERTURA/COVA RASA", "14020602\n14020604", "10,53\n10,53", "21,06"], ["INFANTE JAZIGO/GAVETA", "14020403\n14020405", "81,45\n54,32", "135,77", "INFANTE JAZIGO/GAVETA", "14020503\n14020505", "0,00\n0,00", "0,00", "INFANTE JAZIGO/GAVETA", "14020603\n14020605", "24,03\n24,03", "48,06"]],
-            styles: { fontSize: 8, valign: 'middle', halign: 'left', cellPadding: 1, overflow: 'linebreak' },
-            columnStyles: { 0: { cellWidth: 30, halign: 'left' }, 1: { cellWidth: 25, halign: 'center' }, 2: { cellWidth: 15, halign: 'center' }, 3: { cellWidth: 15, halign: 'center' }, 4: { cellWidth: 30, halign: 'left' }, 5: { cellWidth: 25, halign: 'center' }, 6: { cellWidth: 15, halign: 'center' }, 7: { cellWidth: 15, halign: 'center' }, 8: { cellWidth: 30, halign: 'left' }, 9: { cellWidth: 25, halign: 'center' }, 10: { cellWidth: 15, halign: 'center' }, 11: { cellWidth: 15, halign: 'center' } },
-            headStyles: { fillColor: [240, 240, 240], textColor: [0, 0, 0], fontSize: 8, fontStyle: 'bold', halign: 'left', valign: 'middle' },
-            theme: 'grid',
-            margin: { left: 10, right: 10 }
+
+    async function gerarPlanilhaPMT(data) {
+        const workbook = XLSX.utils.book_new();
+        const headers = ["CPF", "NOME", "DATA DE ÓBITO"];
+        const outputData = [];
+
+        // Processar cada linha de dados
+        data.forEach(item => {
+            const cpf = formattedData(item, "CPF") || "Não informado";
+            const nome = formattedData(item, "FALECIDO(A)") || "Não informado";
+            const dataObito = formattedData(item, "DATA DE ÓBITO") || "Não informado";
+            outputData.push([cpf, nome, dataObito]);
         });
-        doc.save(`Tabela_de_Precos_DATM_${anoAtual}.pdf`);
+
+        // Adicionar cabeçalhos e dados ao worksheet
+        const worksheet = XLSX.utils.aoa_to_sheet([headers, ...outputData]);
+
+        // Adicionar worksheet ao workbook
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Planilha PMT");
+
+        // Gerar nome do arquivo com data e hora atual
+        const dataAtual = new Date();
+        const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+        const ano = dataAtual.getFullYear();
+        const filename = `Planilha_PMT_${mes}${ano}.xlsx`;
+
+        // Salvar o arquivo
+        XLSX.writeFile(workbook, filename);
     }
+
 
     // Inicialização da planilha
     let spreadsheet = jspreadsheet(document.getElementById('spreadsheet'), {
@@ -680,17 +639,52 @@
         });
     }
 
+    const excelInputPMT = document.getElementById('prefeitura-excel-upload');
+    const gerarPMTButton = document.getElementById('gerar-planilha-prefeitura');
+    if (excelInputPMT && gerarPMTButton) {
+        gerarPMTButton.addEventListener('click', async () => {
+            const files = excelInputPMT.files;
+            let data;
+            if (files.length > 0) {
+                const allData = [];
+                for (const file of files) {
+                    const fileData = await readExcelFile(file);
+                    if (fileData) allData.push(...fileData);
+                }
+                data = allData;
+            } else {
+                data = mapDataToReport(spreadsheet[0].getData());
+            }
+            if (data && data.length) {
+                try {
+                    await gerarPlanilhaPMT(data);
+                    alert("Planilha PMT gerada com sucesso!");
+                } catch (error) {
+                    console.error("Erro ao gerar a planilha PMT:", error);
+                    alert("Ocorreu um erro ao gerar a planilha.");
+                }
+            }
+        });
+    }
+
     const voltarButtonFMS = document.getElementById('retornarFMS');
     if (voltarButtonFMS) {
         voltarButtonFMS.addEventListener('click', () => {
-            window.location.href = 'home.html';
+            window.location.href = 'geracao teste.html';
         });
     }
 
     const voltarButtonSDU = document.getElementById('retornarSDU');
     if (voltarButtonSDU) {
         voltarButtonSDU.addEventListener('click', () => {
-            window.location.href = 'home.html';
+            window.location.href = 'geracao teste.html';
+        });
+    }
+
+    const voltarButtonPMT = document.getElementById('retornarPrefeitura');
+    if (voltarButtonPMT) {
+        voltarButtonPMT.addEventListener('click', () => {
+            window.location.href = 'geracao teste.html';
         });
     }
 

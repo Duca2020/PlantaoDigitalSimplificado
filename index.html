@@ -456,15 +456,16 @@
 
     async function gerarPlanilhaPMT(data) {
         const workbook = XLSX.utils.book_new();
-        const headers = ["CPF", "NOME", "DATA DE ÓBITO"];
+        const headers = ["CPF", "NOME", "DATA DE NASCIMENTO", "DATA DE ÓBITO"];
         const outputData = [];
 
         // Processar cada linha de dados
         data.forEach(item => {
             const cpf = formattedData(item, "CPF") || "Não informado";
             const nome = formattedData(item, "FALECIDO(A)") || "Não informado";
+            const dataNascimento = formattedData(item, "DATA DE NASCIMENTO") || "Não informado";
             const dataObito = formattedData(item, "DATA DE ÓBITO") || "Não informado";
-            outputData.push([cpf, nome, dataObito]);
+            outputData.push([cpf, nome, dataNascimento, dataObito]);
         });
 
         // Adicionar cabeçalhos e dados ao worksheet

@@ -185,8 +185,8 @@
                             </div>
                         </div>
                         <br><br><br><br><br><br><br>
-                        <h1>Gerar Planilha PMT (por tabela)</h1>
-                        <p>Esta funcionalidade é utilizada para gerar a planilha mensal da Prefeitura Municipal de Teresina a partir de tabelas salvas no computador.</p>
+                        <h1>Gerar Planilha IPMT (por tabela)</h1>
+                        <p>Esta funcionalidade é utilizada para gerar a planilha mensal do IPMT a partir de tabelas salvas no computador.</p>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="br-upload">
@@ -195,7 +195,7 @@
                                     <div class="upload-list"></div>
                                 </div>
                                 <button class="br-button secondary mt-3" type="button" id="retornarPrefeitura">Voltar</button>
-                                <button id="gerar-planilha-prefeitura" class="br-button primary mt-3">Gerar Planilha PMT</button>
+                                <button id="gerar-planilha-prefeitura" class="br-button primary mt-3">Gerar Planilha IPMT</button>
                             </div>
                         </div>
                     </div>
@@ -437,7 +437,7 @@
         const excelData = data.map((item, index) => ({
             "ITEM": (index + 1).toString(),
             "NOME": formattedData(item, "FALECIDO(A)"),
-            "CPF": formattedData(item, "CPF"),
+            "CPF": formattedData(item, "CPF").replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"),
             "DATA DE ÓBITO": formattedData(item, "DATA DE OBITO"),
             "DECLARAÇÃO DE ÓBITO": formattedData(item, "D.O"),
             "FUNERÁRIA": formattedData(item, "FUNERARIA"),
@@ -461,7 +461,7 @@
 
         // Processar cada linha de dados
         data.forEach(item => {
-            const cpf = formattedData(item, "CPF") || "Não informado";
+            const cpf = formattedData(item, "CPF").replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4") || "Não informado";
             const nome = formattedData(item, "FALECIDO(A)") || "Não informado";
             const dataNascimento = formattedData(item, "DATA DE NASCIMENTO") || "Não informado";
             const dataObito = formattedData(item, "DATA DE ÓBITO") || "Não informado";
@@ -472,13 +472,13 @@
         const worksheet = XLSX.utils.aoa_to_sheet([headers, ...outputData]);
 
         // Adicionar worksheet ao workbook
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Planilha PMT");
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Planilha IPMT");
 
         // Gerar nome do arquivo com data e hora atual
         const dataAtual = new Date();
         const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
         const ano = dataAtual.getFullYear();
-        const filename = `Planilha_PMT_${mes}${ano}.xlsx`;
+        const filename = `Planilha_IPMT_${mes}${ano}.xlsx`;
 
         // Salvar o arquivo
         XLSX.writeFile(workbook, filename);
@@ -659,9 +659,9 @@
             if (data && data.length) {
                 try {
                     await gerarPlanilhaPMT(data);
-                    alert("Planilha PMT gerada com sucesso!");
+                    alert("Planilha IPMT gerada com sucesso!");
                 } catch (error) {
-                    console.error("Erro ao gerar a planilha PMT:", error);
+                    console.error("Erro ao gerar a planilha IPMT:", error);
                     alert("Ocorreu um erro ao gerar a planilha.");
                 }
             }

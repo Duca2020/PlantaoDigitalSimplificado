@@ -399,7 +399,7 @@
             return `${diaStr}/${mesStr}/${anoStr}`;
         };
         doc.autoTable({
-            head: [["ITEM", "DECLARAÇÃO DE ÓBITO", "FUNERÁRIA", "CEMITÉRIO", "NÚMERO DO BLOCO", "NÚMERO DA GUIA", "TAXA EMITIDA PARA FUNERARIA OU TAXA PAGA PELA FAMILIA OU SEMCASPI/TRANSLADO/RURAL", "VALOR TAXA", "SITUAÇÃO", "PLANTONISTA", "DATA DO ATENDIMENTO"]],
+            head: [["ITEM", "DECLARAÇÃO DE ÓBITO", "FUNERÁRIA", "CEMITÉRIO", "NÚMERO DO BLOCO", "NÚMERO DA GUIA", "TAXA", "VALOR DA TAXA EMITIDA", "SITUAÇÃO", "PLANTONISTA", "DATA DO ATENDIMENTO"]],
             body: data.map((item, index) => [
                 (index + 1).toString(),
                 formattedData(item, "D.O"),
@@ -407,8 +407,8 @@
                 formattedData(item, "CEMITERIO"),
                 formattedData(item, "BLOCO"),
                 formattedData(item, "GUIA"),
-                formattedData(item, "TAXA EMITIDA PARA FUNERARIA OU TAXA PAGA PELA FAMILIA OU SEMCASPI/TRANSLADO/RURAL"),
-                formattedData(item, "TAXA / ISENÇÃO/TRANSLADO"),
+                formattedData(item, "TAXA"),
+                formattedData(item, "VALOR DA TAXA EMITIDA"),
                 formattedData(item, "SITUAÇÃO"),
                 formattedData(item, "PLANTONISTA"),
                 formattedData(item, "DATA DE ATENDIMENTO")
@@ -444,8 +444,8 @@
             "CEMITÉRIO": formattedData(item, "CEMITERIO"),
             "NÚMERO DO BLOCO": formattedData(item, "BLOCO"),
             "NÚMERO DA GUIA": formattedData(item, "GUIA"),
-            "TAXA EMITIDA PARA FUNERARIA OU TAXA PAGA PELA FAMILIA OU SEMCASPI/TRANSLADO/RURAL": formattedData(item, "TAXA EMITIDA PARA FUNERARIA OU TAXA PAGA PELA FAMILIA OU SEMCASPI/TRANSLADO/RURAL"),
-            "VALOR TAXA": formattedData(item, "TAXA / ISENÇÃO/TRANSLADO"),
+            "TAXA": formattedData(item, "TAXA"),
+            "VALOR DA TAXA EMITIDA": formattedData(item, "VALOR DA TAXA EMITIDA"),
             "SITUAÇÃO": formattedData(item, "SITUAÇÃO"),
             "PLANTONISTA": formattedData(item, "PLANTONISTA"),
             "DATA DO ATENDIMENTO": formattedData(item, "DATA DE ATENDIMENTO")

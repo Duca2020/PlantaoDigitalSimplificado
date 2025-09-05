@@ -329,7 +329,7 @@
                 (index + 1).toString(),
                 formattedData(item, "FALECIDO(A)"),
                 formattedData(item, "DATA DE NASCIMENTO"),
-                formattedData(item, "IDADE"),
+                formattedData(item, "IDADE DO FALECIDO"),
                 formattedData(item, "DATA DE OBITO"),
                 formattedData(item, "D.O"),
                 formattedData(item, "FUNERARIA"),
@@ -464,7 +464,7 @@
             const cpf = formattedData(item, "CPF").replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4") || "Não informado";
             const nome = formattedData(item, "FALECIDO(A)") || "Não informado";
             const dataNascimento = formattedData(item, "DATA DE NASCIMENTO") || "Não informado";
-            const dataObito = formattedData(item, "DATA DE ÓBITO") || "Não informado";
+            const dataObito = formattedData(item, "DATA DE OBITO") || "Não informado";
             outputData.push([cpf, nome, dataNascimento, dataObito]);
         });
 
